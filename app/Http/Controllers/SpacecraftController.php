@@ -110,7 +110,7 @@ class SpacecraftController extends Controller
         if ($request->file('image')) {
 
             // Delete the old file for the current object
-            $oldFile = public_path($spacecraft->file_path);
+            $oldFile = public_path($spacecraft->image);
             File::delete($oldFile);
 
             // Image Upload

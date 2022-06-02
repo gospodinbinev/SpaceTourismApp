@@ -7,7 +7,7 @@ use Carbon\Carbon;
 use Response;
 
 Use App\Models\AstronomicalObject;
-
+use App\Models\Spacecraft;
 use Illuminate\Http\Request;
 
 class SolarSystemController extends Controller
@@ -115,6 +115,12 @@ class SolarSystemController extends Controller
 
         };
         
+    }
+
+    public function spacecraftList() {
+        $spacecraft = Spacecraft::orderBy('id', 'desc')->get();
+        
+        return view('spacecraft', compact('spacecraft'));
     }
 
     // test api

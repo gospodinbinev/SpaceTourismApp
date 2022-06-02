@@ -46,7 +46,8 @@ Route::controller(SolarSystemController::class)->group(function () {
     // Show an astronomical object
     Route::get('/astronomical-object/{object_id}', 'showAstronomicalObject')->name('show_astro_object');
 
-
+    // Spacecraft List
+    Route::get('/spacecraft-list', 'spacecraftList')->name('spacecraft-list');
 
     // Test API
     Route::get('/testapi', 'fetch');

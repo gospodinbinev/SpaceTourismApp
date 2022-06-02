@@ -21,7 +21,7 @@
             <a class="nav-link {{ Request::is('dashboard') ? 'active' : '' }}" aria-current="page" href="{{ route('dashboard') }}">Home</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">Spacecraft</a>
+            <a class="nav-link" href="{{ route('spacecraft-list') }}">Spacecraft</a>
         </li>
 
         <!-- Admin menu -->
