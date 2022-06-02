@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\File;
+
 use App\Models\Spacecraft;
 use Illuminate\Http\Request;
 use App\Http\Requests\CreateSpacecraftRequest;
+use App\Http\Requests\UpdateSpacecraftRequest;
 use Intervention\Image\Facades\Image;
 
 class SpacecraftController extends Controller
@@ -46,17 +49,19 @@ class SpacecraftController extends Controller
     public function store(CreateSpacecraftRequest $request)
     {
         $spacecraft = new Spacecraft();
+        
         $spacecraft->name = $request->name;
         $spacecraft->height = $request->height;
         $spacecraft->diameter = $request->diameter;
         $spacecraft->payload = $request->payload;
         
         // Image Upload
-        $image = $request->file('image');
-        $imageName = time().$image->getClientOriginalName();
-        $imageUploadPath = Image::make('public/spacecraft/'.$imageName);
+        $originalImage = $request->file('image');
+        $image = Image::make($originalImage);
+        $imagePath = public_path().'/spacecraft_img/';
+        $image->save($imagePath.time().$originalImage->getClientOriginalName());
 
-        $spacecraft->image = 'spacecraft/'.$imageName;
+        $spacecraft->image = 'spacecraft_img/'.time().$originalImage->getClientOriginalName();
         $spacecraft->save();
 
         return redirect()->route('spacecraft.index')->withSuccess('Spacecraft added successfully!');
@@ -79,9 +84,11 @@ class SpacecraftController extends Controller
      * @param  \App\Models\Spacecraft  $spacecraft
      * @return \Illuminate\Http\Response
      */
-    public function edit(Spacecraft $spacecraft)
+    public function edit($id)
     {
-        //
+        $spacecraft = Spacecraft::findOrFail($id);
+        
+        return view('spacecraft.edit', compact('spacecraft'));
     }
 
     /**
@@ -91,9 +98,35 @@ class SpacecraftController extends Controller
      * @param  \App\Models\Spacecraft  $spacecraft
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Spacecraft $spacecraft)
+    public function update(UpdateSpacecraftRequest $request, $id)
     {
-        //
+        $spacecraft = Spacecraft::findOrFail($id);
+
+        $spacecraft->name = $request->name;
+        $spacecraft->height = $request->height;
+        $spacecraft->diameter = $request->diameter;
+        $spacecraft->payload = $request->payload;
+
+        if ($request->file('image')) {
+
+            // Delete the old file for the current object
+            $oldFile = public_path($spacecraft->file_path);
+            File::delete($oldFile);
+
+            // Image Upload
+            $originalImage = $request->file('image');
+            $image = Image::make($originalImage);
+            $imagePath = public_path().'/spacecraft_img/';
+            $image->save($imagePath.time().$originalImage->getClientOriginalName());
+
+            // Save image path in db
+            $spacecraft->image = 'spacecraft_img/'.time().$originalImage->getClientOriginalName();
+
+        }
+
+        $spacecraft->save();
+
+        return redirect()->route('spacecraft.index')->withSuccess('Spacecraft updated successfully!');
     }
 
     /**

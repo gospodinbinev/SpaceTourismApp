@@ -85,8 +85,8 @@
           <tr>
             <th scope="row">{{ $machine->id }}</th>
             <td>{{ $machine->name }}</td>
-            <td></td>
-            <td>{{ $object->created_at }}</td>
+            <td><img height="50" src="{{ asset($machine->image) }}" alt=""></td>
+            <td>{{ $machine->created_at }}</td>
             <td><a class="btn btn-outline-info" href="{{ route('spacecraft.edit', $machine->id) }}">Edit</a></td>
           </tr>
           @endforeach

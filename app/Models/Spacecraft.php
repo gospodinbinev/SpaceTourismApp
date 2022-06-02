@@ -9,6 +9,8 @@ class Spacecraft extends Model
 {
     use HasFactory;
 
+    protected $table = 'spacecraft';
+
     protected $fillable = [
         'name',
         'height',
