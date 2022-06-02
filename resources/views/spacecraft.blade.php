@@ -80,6 +80,12 @@
 
 @include('components.spaceapp-components.navigation')
 
+<div class="container-fluid" style="margin-top: 15px;">
+
+    {{ Breadcrumbs::render('spacecraft-list') }}
+
+</div>
+
 <div class="container-fluid" style="margin-top: 30px;">
     <h1 class="create-acc-label">Spaceships that you can book</h1>
 

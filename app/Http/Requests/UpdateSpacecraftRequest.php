@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Http\FormRequest;
 
@@ -25,7 +26,7 @@ class UpdateSpacecraftRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|unique:spacecraft,name,'.Auth::user()->id,
+            'name' => 'required',Rule::unique('spacecraft')->ignore($this),
             'height' => 'required|numeric',
             'diameter' => 'required|numeric',
             'payload' => 'required',

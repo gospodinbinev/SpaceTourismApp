@@ -60,6 +60,12 @@
 
 @include('components.spaceapp-components.navigation')
 
+<div class="container-fluid" style="margin-top: 15px;">
+
+    {{ Breadcrumbs::render('spacecraft.edit', $spacecraft) }}
+
+</div>
+
 <section class="py-5 text-center container">
     <div class="row py-lg-5">
         <div class="col-lg-6 col-md-8 mx-auto">
@@ -82,7 +88,7 @@
                 <div class="form-group" style="margin-top: 15px;">
                     {!! Form::label('height', 'Height', ['class' => 'form-label']) !!}
 
-                    {!! Form::number('height', $spacecraft->height, ['class' => 'form-control '.($errors->has('height') ? 'is-invalid':'')]) !!}
+                    {!! Form::number('height', $spacecraft->height, ['class' => 'form-control '.($errors->has('height') ? 'is-invalid':''), 'step' => 'any']) !!}
                     
                     <div class="invalid-feedback">
                         @error('height') {{ $message }} @enderror
@@ -92,7 +98,7 @@
                 <div class="form-group" style="margin-top: 15px;">
                     {!! Form::label('diameter', 'Diameter', ['class' => 'form-label']) !!}
 
-                    {!! Form::number('diameter', $spacecraft->diameter, ['class' => 'form-control '.($errors->has('diameter') ? 'is-invalid':'')]) !!}
+                    {!! Form::number('diameter', $spacecraft->diameter, ['class' => 'form-control '.($errors->has('diameter') ? 'is-invalid':''), 'step' => 'any']) !!}
                     
                     <div class="invalid-feedback">
                         @error('diameter') {{ $message }} @enderror

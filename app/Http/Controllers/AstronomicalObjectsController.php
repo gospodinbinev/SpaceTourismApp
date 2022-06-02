@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Support\Facades\File;
-
 use App\Models\AstronomicalObject;
 use App\Http\Requests\CreateAstronomicalObjectRequest;
 use App\Http\Requests\UpdateAstronomicalObjectRequest;
+
+use App\Services\AstronomicalObjectService;
 
 use Illuminate\Http\Request;
 
@@ -47,21 +47,9 @@ class AstronomicalObjectsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(CreateAstronomicalObjectRequest $request)
+    public function store(CreateAstronomicalObjectRequest $request, AstronomicalObjectService $astronomicalObjectService)
     {
-        //
-
-        $astronomicalObject = new AstronomicalObject();
-        $astronomicalObject->object_id = $request->object_id;
-        $astronomicalObject->description = $request->description;
-        
-        // File upload
-        $file = $request->file('file_path');
-        $fileName = $file->getClientOriginalName();
-        $file->move('astronomical-3d-models', $fileName);
-
-        $astronomicalObject->file_path = 'astronomical-3d-models/'.$fileName;
-        $astronomicalObject->save();
+        $astronomicalObject = $astronomicalObjectService->createAstronomicalObject($request);
 
         return redirect()->route('astronomical-objects.index')->withSuccess('Astronomical Object added successfully!');
     }
@@ -99,30 +87,9 @@ class AstronomicalObjectsController extends Controller
      * @param  \App\Models\AstronomicalObject  $astronomicalObject
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateAstronomicalObjectRequest $request, $id)
+    public function update(UpdateAstronomicalObjectRequest $request, AstronomicalObjectService $astronomicalObjectService, $id)
     {
-        //
-        $astronomicalObject = AstronomicalObject::findOrFail($id);
-        $astronomicalObject->object_id = $request->object_id;
-        $astronomicalObject->description = $request->description;
-
-        if ($request->file('file_path')) {
-
-            // Delete the old file for the current object
-            $oldFile = public_path($astronomicalObject->file_path);
-            File::delete($oldFile);
-
-            // File upload
-            $file = $request->file('file_path');
-            $fileName = $file->getClientOriginalName();
-            $file->move('astronomical-3d-models', $fileName);
-
-            // Save file path in db
-            $astronomicalObject->file_path = 'astronomical-3d-models/'.$fileName;
-
-        }
-
-        $astronomicalObject->save();
+        $astronomicalObject = $astronomicalObjectService->updateAstronomicalObject($request, $id);
 
         return redirect()->route('astronomical-objects.index')->withSuccess('Astronomical Object updated successfully!');
     }

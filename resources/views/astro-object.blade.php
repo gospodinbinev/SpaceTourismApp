@@ -82,6 +82,12 @@
 
 @include('components.spaceapp-components.navigation')
 
+<div class="container-fluid" style="margin-top: 15px;">
+
+    {{ Breadcrumbs::render('show_astro_object', $astronomicalObject) }}
+
+</div>
+
 <div class="container-fluid" style="margin-top: 30px;">
     
     <div class="row">

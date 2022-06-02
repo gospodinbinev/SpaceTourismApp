@@ -60,6 +60,12 @@
 
 @include('components.spaceapp-components.navigation')
 
+<div class="container-fluid" style="margin-top: 15px;">
+
+    {{ Breadcrumbs::render('astronomical-objects.index') }}
+
+</div>
+
 <div class="container-fluid" style="margin-top: 30px;">
     <h1 style="color: #FFF; font-size: 30px; text-shadow: 1px 1px 2px black;">Manage Astronomical Objects</h1>
     <a class="btn btn-primary" href="{{ route('astronomical-objects.create') }}">Create Astronomical Object</a>
