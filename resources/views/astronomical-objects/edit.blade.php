@@ -96,6 +96,18 @@
                 </div>
 
                 <div class="form-group" style="margin-top: 15px;">
+                    {!! Form::label('image_path', 'png or jpg Image', ['class' => 'form-label']) !!}
+                    <p style="color: #fff; font-weight: 300;">Current Image: <img height="50" src="@foreach ($astronomicalObject->thumbnails as $thumbnail) {{ asset($thumbnail->image_path) }} @endforeach" alt=""></p>
+
+                    {!! Form::file('image_path', ['class' => 'form-control '.($errors->has('image_path') ? 'is-invalid':'')]) !!}
+
+                    <div class="invalid-feedback">
+                        @error('image_path') {{ $message }} @enderror
+                    </div>
+
+                </div>
+
+                <div class="form-group" style="margin-top: 15px;">
                     {!! Form::label('file_path', 'glTF or gld File', ['class' => 'form-label']) !!}
                     <p style="color: #fff; font-weight: 300;">Current File: <strong>{{ $astronomicalObject->file_path }}</strong></p>
 

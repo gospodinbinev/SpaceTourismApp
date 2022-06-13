@@ -98,21 +98,12 @@
             <!-- 3D object -->
             <!-- This inserts the 3D object inside the aside container -->
             <a style="text-decoration: none;" href="{{ route('show_astro_object', $planet->object_id) }}">
-                <model-viewer @if ($planet->object_id == 'saturn') min-field-of-view="90deg" @endif class="reveal" loading="auto" src="{{ asset($planet->file_path) }}" alt="{{ $planet->object_id }}" auto-rotate ar ios-src="{{ asset($planet->file_path) }}"></model-viewer>
+                <img class="img-fluid" src="@foreach ($planet->thumbnails as $thumbnail) {{ asset($thumbnail->image_path) }} @endforeach" alt="">
             </a>
         </div>
         @endforeach
     </div>
 
 </div>
-
-@endsection
-
-@section('add-js')
-
-<!--Imports a model-viewer JavaScript code -->
-<!--It helps to handle how the 3D Object would be displayed -->
-<script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
-<script nomodule src="https://unpkg.com/@google/model-viewer/dist/model-viewer-legacy.js"></script>
 
 @endsection

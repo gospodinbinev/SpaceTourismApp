@@ -14,4 +14,8 @@ class AstronomicalObject extends Model
         'description',
         'file_path'
     ];
+
+    public function thumbnails() {
+        return $this->morphMany(Thumbnail::class, 'imageable');
+    }
 }

@@ -27,6 +27,7 @@ class UpdateAstronomicalObjectRequest extends FormRequest
             //
             'object_id' => 'required',
             'description' => 'required',
+            'image_path' => 'mimetypes:image/png,image/jpeg',
             'file_path' => 'file|mimetypes:application/octet-stream'
         ];
     }
