@@ -18,6 +18,7 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'role_id',
         'first_name',
         'last_name',
         'email',
@@ -45,6 +46,14 @@ class User extends Authenticatable
 
     public function role() {
         return $this->belongsTo(Role::class);
+    }
+
+    public function thumbnails() {
+        return $this->morphMany(Thumbnail::class, 'imageable');
+    }
+
+    public function userAdditionalInfo() {
+        return $this->hasOne(UserAdditionalInfo::class);
     }
 
     public function isAdmin() {

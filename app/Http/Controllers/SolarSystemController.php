@@ -55,7 +55,6 @@ class SolarSystemController extends Controller
         $response = Http::get('https://api.le-systeme-solaire.net/rest/bodies/?filter[]=englishName,eq,'.$astronomicalObject->object_id);
         $astronomicalObjectApi = $response->collect();
 
-
         // Data assign from API to Eloquent collection
         foreach ($astronomicalObjectApi['bodies'] as $body) {
  

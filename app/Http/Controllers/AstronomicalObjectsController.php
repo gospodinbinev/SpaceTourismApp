@@ -73,8 +73,6 @@ class AstronomicalObjectsController extends Controller
      */
     public function edit($id)
     {
-        //
-
         $astronomicalObject = AstronomicalObject::findOrFail($id);
 
         return view('astronomical-objects.edit', compact('astronomicalObject'));

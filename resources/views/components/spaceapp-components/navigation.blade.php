@@ -47,12 +47,11 @@
         
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                
+                <img class="profile-pic" height="30" src="@foreach (Auth::user()->thumbnails as $thumbnail) {{ asset($thumbnail->image_path) }} @endforeach">
                 {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}
-
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="#">Edit profile</a></li>
+                <li><a class="dropdown-item" href="{{ route('edit-user', Auth::user()->id) }}">Edit profile</a></li>
                 <li>
                     {!! Form::open(['method' => 'post', 'route' => 'logout']) !!}
                     {!! Form::submit('Logout', ['class' => 'dropdown-item']) !!}

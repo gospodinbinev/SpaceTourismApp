@@ -44,10 +44,21 @@ class RegisteredUserController extends Controller
         ]);
 
         $user = User::create([
+            'role_id' => 2,
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+        ]);
+
+        // Create an empty info slot for this user
+        $user->userAdditionalInfo()->create([
+            'user_id' => $user->id
+        ]);
+
+        // Set the user's default avatar
+        $user->thumbnails()->create([
+            'image_path' => 'users/avatars/default/user.png'
         ]);
 
         event(new Registered($user));

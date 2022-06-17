@@ -89,3 +89,7 @@ h2 {
 .breadcrumb-item {
   color: #FFF !important;
 }
+
+.profile-pic {
+  border-radius: 50%;
+}

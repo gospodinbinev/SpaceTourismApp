@@ -1,5 +1,6 @@
 <?php // routes/breadcrumbs.php
 
+use App\Models\User;
 use App\Models\AstronomicalObject;
 use App\Models\Role;
 use App\Models\Spacecraft;
@@ -23,6 +24,11 @@ Breadcrumbs::for('show_astro_object', function (BreadcrumbTrail $trail, Astronom
     $trail->push($astronomicalObject->object_id, route('show_astro_object', $astronomicalObject));
 });
 
+// Home > Edit Profile
+Breadcrumbs::for('edit-user', function (BreadcrumbTrail $trail, User $user) {
+    $trail->parent('dashboard');
+    $trail->push($user->first_name.' '.$user->last_name, route('edit-user', $user));
+});
 
 
 

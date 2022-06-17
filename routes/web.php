@@ -4,7 +4,7 @@ use App\Http\Controllers\SolarSystemController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\AstronomicalObjectsController;
 use App\Http\Controllers\SpacecraftController;
-
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -51,6 +51,20 @@ Route::controller(SolarSystemController::class)->group(function () {
 
     // Test API
     Route::get('/testapi', 'fetch');
+});
+
+Route::controller(UserController::class)->group(function () {
+    // Edit User Profile
+    Route::get('/user/{id}/edit', 'editUser')->name('edit-user');
+
+    // Update User Profile Info
+    Route::post('/user/{id}/update', 'updateUser')->name('update-user');
+
+    // Ajax searching for states
+    Route::get('/country/state', 'searchStates');
+
+    // Ajax searching for cities
+    Route::get('/state/city', 'searchCity');
 });
 
 // Manage Roles
