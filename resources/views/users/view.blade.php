@@ -83,7 +83,7 @@
                     @endif
                 </div>
                 <div class="col-5">
-                    <a class="btn btn-light" style="float: right;" href="{{ route('edit-user', $user->id) }}">Edit profile</a>
+                    <a class="btn btn-light" style="float: right;" href="{{ route('edit-user') }}">Edit profile</a>
                 </div>
             </div>
 

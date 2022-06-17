@@ -27,13 +27,13 @@ Breadcrumbs::for('show_astro_object', function (BreadcrumbTrail $trail, Astronom
 // Home > Profile
 Breadcrumbs::for('view-profile', function (BreadcrumbTrail $trail) {
     $trail->parent('dashboard');
-    $trail->push('My Profile', route('view-profile', Auth::user()->id));
+    $trail->push('My Profile', route('view-profile'));
 });
 
 // Home > Profile -> Edit
 Breadcrumbs::for('edit-user', function (BreadcrumbTrail $trail) {
     $trail->parent('view-profile');
-    $trail->push('Edit', route('edit-user', Auth::user()->id));
+    $trail->push('Edit', route('edit-user'));
 });
 
 

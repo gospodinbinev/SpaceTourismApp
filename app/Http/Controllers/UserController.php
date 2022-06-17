@@ -13,7 +13,12 @@ use MenaraSolutions\Geographer\State;
 
 class UserController extends Controller
 {
-    public function viewProfile($id)
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+    public function viewProfile()
     {
         $user = Auth::user();
 
@@ -25,7 +30,7 @@ class UserController extends Controller
         return view('users.view', compact('user', 'userCountry'));
     }
 
-    public function editUser($id)
+    public function editUser()
     {
         $user = Auth::user();
 
@@ -62,11 +67,11 @@ class UserController extends Controller
         }
     }
 
-    public function updateUser(UpdateUserInfoRequest $request, UserService $userService, $id)
+    public function updateUser(UpdateUserInfoRequest $request, UserService $userService)
     {
-        $user = $userService->updateUser($request, $id);
+        $user = $userService->updateUser($request, Auth::user()->id);
 
-        return redirect()->route('edit-user', Auth::user()->id)->withSuccess('Your profile has been updated successfully!');
+        return redirect()->route('edit-user')->withSuccess('Your profile has been updated successfully!');
     }
 
 

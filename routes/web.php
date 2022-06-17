@@ -55,13 +55,13 @@ Route::controller(SolarSystemController::class)->group(function () {
 
 Route::controller(UserController::class)->group(function () {
     // View Profile
-    Route::get('/user/{id}', 'viewProfile')->name('view-profile');
+    Route::get('/user', 'viewProfile')->name('view-profile');
 
     // Edit User Profile
-    Route::get('/user/{id}/edit', 'editUser')->name('edit-user');
+    Route::get('/user/edit', 'editUser')->name('edit-user');
 
     // Update User Profile Info
-    Route::post('/user/{id}/update', 'updateUser')->name('update-user');
+    Route::post('/user/update', 'updateUser')->name('update-user');
 
     // Ajax searching for states
     Route::get('/country/state', 'searchStates');
