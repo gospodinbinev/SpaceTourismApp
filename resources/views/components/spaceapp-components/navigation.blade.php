@@ -51,7 +51,7 @@
                 {{ Auth::user()->first_name }} {{ Auth::user()->last_name }}
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="{{ route('edit-user', Auth::user()->id) }}">Edit profile</a></li>
+                <li><a class="dropdown-item" href="{{ route('view-profile', Auth::user()->id) }}">My profile</a></li>
                 <li>
                     {!! Form::open(['method' => 'post', 'route' => 'logout']) !!}
                     {!! Form::submit('Logout', ['class' => 'dropdown-item']) !!}

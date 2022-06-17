@@ -62,7 +62,7 @@
 
 <div class="container-fluid" style="margin-top: 15px;">
 
-    {{ Breadcrumbs::render('edit-user', $user = Auth::user()) }}
+    {{ Breadcrumbs::render('edit-user') }}
 
 </div>
 

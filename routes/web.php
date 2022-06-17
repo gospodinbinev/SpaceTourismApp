@@ -54,6 +54,9 @@ Route::controller(SolarSystemController::class)->group(function () {
 });
 
 Route::controller(UserController::class)->group(function () {
+    // View Profile
+    Route::get('/user/{id}', 'viewProfile')->name('view-profile');
+
     // Edit User Profile
     Route::get('/user/{id}/edit', 'editUser')->name('edit-user');
 

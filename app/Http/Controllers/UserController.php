@@ -13,6 +13,18 @@ use MenaraSolutions\Geographer\State;
 
 class UserController extends Controller
 {
+    public function viewProfile($id)
+    {
+        $user = Auth::user();
+
+        $userCountry = '';
+        if (isset($user->userAdditionalInfo->country) && !is_null($user->userAdditionalInfo->country)) {
+            $userCountry = Country::build($user->userAdditionalInfo->country);
+        }
+
+        return view('users.view', compact('user', 'userCountry'));
+    }
+
     public function editUser($id)
     {
         $user = Auth::user();
