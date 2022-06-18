@@ -87,16 +87,27 @@
 </div>
 
 <div class="container-fluid" style="margin-top: 30px;">
-    <h1 class="create-acc-label">Main planets you have to visit</h1>
+    <h1 class="create-acc-label">Main planets in the Milky Way</h1>
 
     <div class="row">
         @foreach ($planets as $planet)
         <div class="col-md-3" style="margin-top: 20px;">
-            <a style="text-decoration: none;" href="{{ route('show_astro_object', $planet->object_id) }}"><h1 class="dashboard-planets-label">{{ $planet->object_id }}</h1></a>
-            <p class="planet-short-info">Semimajor Axis: {{ number_format($planet->semimajorAxis, 0, '', ',') }} km <br> Perihelion: {{ number_format($planet->perihelion, 0, '', ',') }} km <br> Aphelion: {{ number_format($planet->aphelion, 0, '', ',') }} km</p>
+            <a style="text-decoration: none;" href="{{ route('show_astro_object', $planet->object_id) }}">
+                <h1 class="dashboard-planets-label">
+                    {{ $planet->object_id }} 
 
-            <!-- 3D object -->
-            <!-- This inserts the 3D object inside the aside container -->
+                    @if ($planet->object_id == 'Earth')
+                        <span class="badge rounded-pill bg-primary"><i class="fa-solid fa-house"></i> Our home planet</span> 
+                    @endif
+                </h1>
+            </a>
+
+            <p class="planet-short-info">
+                Semimajor Axis: {{ number_format($planet->solarSystemApi()->semimajorAxis, 0, '', ',') }} km <br> 
+                Perihelion: {{ number_format($planet->solarSystemApi()->perihelion, 0, '', ',') }} km <br> 
+                Aphelion: {{ number_format($planet->solarSystemApi()->aphelion, 0, '', ',') }} km
+            </p>
+
             <a style="text-decoration: none;" href="{{ route('show_astro_object', $planet->object_id) }}">
                 <img class="img-fluid" src="@foreach ($planet->thumbnails as $thumbnail) {{ asset($thumbnail->image_path) }} @endforeach" alt="">
             </a>

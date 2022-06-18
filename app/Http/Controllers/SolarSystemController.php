@@ -22,22 +22,6 @@ class SolarSystemController extends Controller
     {
         $planets = AstronomicalObject::orderBy('id', 'asc')->get();
 
-        // API data for main planets
-        $responseOnlyPlanets = Http::get('https://api.le-systeme-solaire.net/rest/bodies/?filter[]=bodyType,eq,Planet');
-        $planetsApi = $responseOnlyPlanets->collect();
-
-        // Data assign from API to Eloquent collection 
-        foreach ($planets as $planet) {
-            foreach ($planetsApi['bodies'] as $planetApi) {
-                if ($planet->object_id == $planetApi['englishName']) {
-                
-                    $planet->semimajorAxis = $planetApi['semimajorAxis'];
-                    $planet->perihelion = $planetApi['perihelion'];
-                    $planet->aphelion = $planetApi['aphelion'];
-                }
-            }
-        }
-
         return view('dashboard', compact('planets'));
     }
 
@@ -45,44 +29,6 @@ class SolarSystemController extends Controller
     public function showAstronomicalObject($object_id)
     {
         $astronomicalObject = AstronomicalObject::where('object_id', $object_id)->first();
-
-        // API data for the current astronomical object
-        $response = Http::get('https://api.le-systeme-solaire.net/rest/bodies/?filter[]=englishName,eq,'.$astronomicalObject->object_id);
-        $astronomicalObjectApi = $response->collect();
-
-        // Data assign from API to Eloquent collection
-        foreach ($astronomicalObjectApi['bodies'] as $body) {
- 
-            $astronomicalObject->bodyType = $body['bodyType'];
-            $astronomicalObject->semimajorAxis = $body['semimajorAxis'];
-            $astronomicalObject->perihelion = $body['perihelion'];
-            $astronomicalObject->aphelion = $body['aphelion'];
-            $astronomicalObject->eccentricity = $body['eccentricity'];
-            $astronomicalObject->inclination = $body['inclination'];
-            $astronomicalObject->massValue = $body['mass']['massValue'];
-            $astronomicalObject->gravity = $body['gravity'];
-            $astronomicalObject->meanRadius = $body['meanRadius'];
-
-                // Length of day on the astronomical object
-                $now = Carbon::now();
-                $addHoursToNow = $now->copy()->addRealHours($body['sideralRotation']);
-                $lengthOfTheDay = $now->diff($addHoursToNow);
-                
-                // Check if days are much more
-                $days = 0;
-                if ($lengthOfTheDay->days > 0) {
-                    $days = $lengthOfTheDay->days;
-                }
-                else {
-                    $days = $lengthOfTheDay->d;
-                }
-
-            $astronomicalObject->sideralRotation = $days.' days '.$lengthOfTheDay->h.' hours '.$lengthOfTheDay->i.' minutes';
-            $astronomicalObject->avgTemp = $body['avgTemp'] - 273.15; // Convert Kelvin temperature to Celsius
-            $astronomicalObject->axialTilt = $body['axialTilt'];
-
-
-        }
 
         return view('astro-object', compact('astronomicalObject'));
     }

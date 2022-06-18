@@ -102,27 +102,27 @@
             
 
             <p class="planet-short-info" style="background: #0D6EFD; padding: 10px; opacity: 0.9;">
-                Semimajor Axis: <span style="float: right;">{{ number_format($astronomicalObject->semimajorAxis, 0, '', ',') }} km</span><br>
+                Semimajor Axis: <span style="float: right;">{{ number_format($astronomicalObject->solarSystemApi()->semimajorAxis, 0, '', ',') }} km</span><br>
 
-                Perihelion: <span style="float: right;">{{ number_format($astronomicalObject->perihelion, 0, '', ',') }} km</span><br>
+                Perihelion: <span style="float: right;">{{ number_format($astronomicalObject->solarSystemApi()->perihelion, 0, '', ',') }} km</span><br>
                 
-                Aphelion: <span style="float: right;">{{ number_format($astronomicalObject->aphelion, 0, '', ',') }} km</span> <br>
+                Aphelion: <span style="float: right;">{{ number_format($astronomicalObject->solarSystemApi()->aphelion, 0, '', ',') }} km</span> <br>
                 
-                Orbital eccentricity: <span style="float: right;">{{ $astronomicalObject->eccentricity }}</span> <br>
+                Orbital eccentricity: <span style="float: right;">{{ $astronomicalObject->solarSystemApi()->eccentricity }}</span> <br>
                 
-                Orbital inclination in degrees: <span style="float: right;">{{ $astronomicalObject->inclination }}</span> <br>
+                Orbital inclination in degrees: <span style="float: right;">{{ $astronomicalObject->solarSystemApi()->inclination }}</span> <br>
                 
-                Body mass in 10<sup>n</sup> kg: <span style="float: right;">{{ $astronomicalObject->massValue }}</span> <br>
+                Body mass in 10<sup>n</sup> kg: <span style="float: right;">{{ $astronomicalObject->solarSystemApi()->mass['massValue'] }}</span> <br>
                 
-                Gravity: <span style="float: right;">{{ $astronomicalObject->gravity }} m/s<sup>2</sup></span><br>
+                Gravity: <span style="float: right;">{{ $astronomicalObject->solarSystemApi()->gravity }} m/s<sup>2</sup></span><br>
                 
-                Radius: <span style="float: right;">{{ $astronomicalObject->meanRadius }} km</span><br>
+                Radius: <span style="float: right;">{{ $astronomicalObject->solarSystemApi()->meanRadius }} km</span><br>
                 
-                Length of the day: <span style="float: right;">{{ $astronomicalObject->sideralRotation }}</span><br>
+                Length of the day: <span style="float: right;">{{ $astronomicalObject->lengthOfTheDay($astronomicalObject->solarSystemApi()->sideralRotation) }}</span><br>
                 
-                Average tempature in Celsius: <span style="float: right;">{{ $astronomicalObject->avgTemp }}°C</span><br>
+                Average tempature in Celsius: <span style="float: right;">{{ $astronomicalObject->avgTempKelvinToCelsius($astronomicalObject->solarSystemApi()->avgTemp) }}°C</span><br>
                 
-                Axial tilt: <span style="float: right;">{{ $astronomicalObject->axialTilt }}</span>
+                Axial tilt: <span style="float: right;">{{ $astronomicalObject->solarSystemApi()->axialTilt }}</span>
             </p>
 
         </div>
@@ -131,7 +131,7 @@
             
             <h1 class="create-acc-label">{{ $astronomicalObject->object_id }}</h1>
             <p class="planet-short-info">
-                Body type: {{ $astronomicalObject->bodyType }}
+                Body type: {{ $astronomicalObject->solarSystemApi()->bodyType }}
             </p>
             
             <!-- 3D object -->
