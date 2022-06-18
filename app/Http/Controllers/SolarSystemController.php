@@ -28,19 +28,14 @@ class SolarSystemController extends Controller
 
         // Data assign from API to Eloquent collection 
         foreach ($planets as $planet) {
-
             foreach ($planetsApi['bodies'] as $planetApi) {
-
                 if ($planet->object_id == $planetApi['englishName']) {
                 
                     $planet->semimajorAxis = $planetApi['semimajorAxis'];
                     $planet->perihelion = $planetApi['perihelion'];
                     $planet->aphelion = $planetApi['aphelion'];
-
                 }
-
             }
-        
         }
 
         return view('dashboard', compact('planets'));
@@ -95,7 +90,6 @@ class SolarSystemController extends Controller
 
     // Search for astronomical objects
     public function search(Request $request) {
-        
         if ($request->ajax()) {
 
             $output = "";
@@ -109,11 +103,8 @@ class SolarSystemController extends Controller
                 
                 }
             }
-
             return Response($output);
-
         };
-        
     }
 
     public function spacecraftList() {
@@ -124,7 +115,7 @@ class SolarSystemController extends Controller
 
     // test api
     public function fetch() {
-        $responseOnlyPlanets = Http::get('https://api.le-systeme-solaire.net/rest/bodies/?filter[]=name,eq,Phobos');
+        $responseOnlyPlanets = Http::get('https://api.le-systeme-solaire.net/rest/bodies/?filter[]=name,eq,Mars');
         $planetsApi = $responseOnlyPlanets->collect();
 
         dd($planetsApi);
