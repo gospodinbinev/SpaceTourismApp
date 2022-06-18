@@ -77,7 +77,7 @@
                         {{ $user->first_name.' '.$user->last_name }}
                     </h1>
                     <div class="clearfix"></div>
-                    <span style="float: left;" class="badge bg-info text-dark">@username</span><br>
+                    <span style="float: left;" class="badge bg-info text-dark">{{ '@'.$user->username }}</span><br>
                     @if ($userCountry)
                         <span style="float: left; color: #fff;"><i class="fa-solid fa-location-dot"></i> {{ $userCountry->name }}</span>
                     @endif

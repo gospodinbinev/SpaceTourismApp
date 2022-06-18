@@ -83,6 +83,17 @@
 </div>
 </div>
 
+<div class="col-sm-12" style="margin-top: 20px;">
+    {!! Form::label('username', 'Username', ['class' => 'form-label']) !!}
+
+    {!! Form::text('username', old('username'), ['class' => 'form-control '.($errors->has('username') ? 'is-invalid':'')]) !!}
+    <span style="color: #FFF; font-size: 12px;">Only numbers and letters accepted.</span>
+    
+    <div class="invalid-feedback">
+        @error('username') {{ $message }} @enderror
+    </div>
+</div>
+
 <div class="col-12" style="margin-top: 20px;">
     {!! Form::label('email', 'Email', ['class' => 'form-label']) !!}
 

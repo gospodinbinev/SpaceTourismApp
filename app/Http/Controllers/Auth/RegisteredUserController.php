@@ -38,6 +38,7 @@ class RegisteredUserController extends Controller
         $request->validate([
             'first_name' => ['required', 'string', 'max:50'],
             'last_name' => ['required', 'string', 'max:50'],
+            'username' => ['required', 'regex:/^[a-zA-Z0-9 ]+$/', 'min:2', 'max:50', 'unique:users'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'confirmed', Password::min(8)->mixedCase()->numbers()],
             'agreement' => ['required']
@@ -47,6 +48,7 @@ class RegisteredUserController extends Controller
             'role_id' => 2,
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
+            'username' => $request->username,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
