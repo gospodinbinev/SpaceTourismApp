@@ -38,6 +38,7 @@
                     <li><a class="dropdown-item" href="{{ route('roles.index') }}">Roles</a></li>
                     <li><a class="dropdown-item" href="{{ route('astronomical-objects.index') }}">Astronomical Objects</a></li>
                     <li><a class="dropdown-item" href="{{ route('spacecraft.index') }}">Spacecraft</a></li>
+                    <li><a class="dropdown-item" href="{{ route('available-spaceflights.index') }}">Available Spaceflights</a></li>
                 </ul>
                 
             </li>

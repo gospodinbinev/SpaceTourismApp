@@ -54,4 +54,8 @@ class AstronomicalObject extends Model
 
         return $tempInCelsius;
     }
+
+    public function availableSpaceflight() {
+        return $this->belongsToMany(Spacecraft::class, 'available_spaceflights');
+    }
 }

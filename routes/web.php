@@ -3,6 +3,7 @@
 use App\Http\Controllers\SolarSystemController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\AstronomicalObjectsController;
+use App\Http\Controllers\AvailableSpaceflightsController;
 use App\Http\Controllers\SpacecraftController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -78,5 +79,8 @@ Route::resource('astronomical-objects', AstronomicalObjectsController::class);
 
 // Manage Spacecraft
 Route::resource('spacecraft', SpacecraftController::class);
+
+// Manage Available Spaceflights
+Route::resource('available-spaceflights', AvailableSpaceflightsController::class);
 
 require __DIR__.'/auth.php';

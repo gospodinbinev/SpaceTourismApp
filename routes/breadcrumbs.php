@@ -4,6 +4,7 @@ use App\Models\User;
 use App\Models\AstronomicalObject;
 use App\Models\Role;
 use App\Models\Spacecraft;
+use App\Models\AvailableSpaceflight;
 use Diglactic\Breadcrumbs\Breadcrumbs;
 use Diglactic\Breadcrumbs\Generator as BreadcrumbTrail;
 
@@ -90,4 +91,22 @@ Breadcrumbs::for('spacecraft.create', function (BreadcrumbTrail $trail) {
 Breadcrumbs::for('spacecraft.edit', function (BreadcrumbTrail $trail, Spacecraft $spacecraft) {
     $trail->parent('spacecraft.index');
     $trail->push($spacecraft->name, route('spacecraft.edit', $spacecraft));
+});
+
+// Home > [admin] Manage Available Spaceflights 
+Breadcrumbs::for('available-spaceflights.index', function (BreadcrumbTrail $trail) {
+    $trail->parent('dashboard');
+    $trail->push('Manage Available Spaceflights', route('available-spaceflights.index'));
+});
+
+// Home > [admin] Create Available Spaceflight
+Breadcrumbs::for('available-spaceflights.create', function (BreadcrumbTrail $trail) {
+    $trail->parent('available-spaceflights.index');
+    $trail->push('Create Available Spaceflight', route('available-spaceflights.create'));
+});
+
+// Home > [admin] Edit Available Spaceflight
+Breadcrumbs::for('available-spaceflights.edit', function (BreadcrumbTrail $trail, AvailableSpaceflight $availableSpaceflight) {
+    $trail->parent('available-spaceflights.index');
+    $trail->push('Edit Available Spaceflight', route('available-spaceflights.edit', $availableSpaceflight));
 });
