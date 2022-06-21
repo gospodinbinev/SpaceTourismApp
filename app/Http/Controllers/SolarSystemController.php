@@ -20,7 +20,22 @@ class SolarSystemController extends Controller
     // Home page of the app
     public function dashboard()
     {
+        $response = Http::get('https://api.le-systeme-solaire.net/rest/bodies/?filter[]=bodyType,eq,Planet');
+        $responseBody = $response->collect();
+        $responseBodyToObject = (object) $responseBody['bodies'];
+        
         $planets = AstronomicalObject::orderBy('id', 'asc')->get();
+
+        foreach ($responseBodyToObject as $body) {
+            $body = (object) $body;
+            foreach ($planets as $planet) {
+                if ($body->englishName == $planet->object_id) {
+                    $planet->semimajorAxis = $body->semimajorAxis;
+                    $planet->perihelion = $body->perihelion;
+                    $planet->aphelion = $body->aphelion; 
+                }
+            }
+        }
 
         return view('dashboard', compact('planets'));
     }
@@ -61,7 +76,7 @@ class SolarSystemController extends Controller
 
     // test api
     public function fetch() {
-        $responseOnlyPlanets = Http::get('https://api.le-systeme-solaire.net/rest/bodies/?filter[]=name,eq,Mars');
+        $responseOnlyPlanets = Http::get('https://api.le-systeme-solaire.net/rest/bodies/?filter[]=englishName,eq,Moon');
         $planetsApi = $responseOnlyPlanets->collect();
 
         dd($planetsApi);

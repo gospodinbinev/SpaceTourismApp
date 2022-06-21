@@ -96,8 +96,10 @@ class SpacecraftController extends Controller
      * @param  \App\Models\Spacecraft  $spacecraft
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Spacecraft $spacecraft)
+    public function destroy(Request $request, SpacecraftService $spacecraftService, $id)
     {
-        //
+        $spacecraft = $spacecraftService->deleteSpacecraft($request, $id);
+
+        return redirect()->route('spacecraft.index')->withSuccess('Spacecraft deleted successfully!');
     }
 }

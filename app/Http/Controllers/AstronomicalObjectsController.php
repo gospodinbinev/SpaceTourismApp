@@ -98,8 +98,10 @@ class AstronomicalObjectsController extends Controller
      * @param  \App\Models\AstronomicalObject  $astronomicalObject
      * @return \Illuminate\Http\Response
      */
-    public function destroy(AstronomicalObject $astronomicalObject)
+    public function destroy(Request $request, AstronomicalObjectService $astronomicalObjectService, $id)
     {
-        //
+        $astronomicalObject = $astronomicalObjectService->deleteAstronomicalObject($request, $id);
+
+        return redirect()->route('astronomical-objects.index')->withSuccess('Astronomical Object deleted successfully!');
     }
 }

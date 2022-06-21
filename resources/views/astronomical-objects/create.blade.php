@@ -96,6 +96,17 @@
                 </div>
 
                 <div class="form-group" style="margin-top: 15px;">
+                    {!! Form::label('image_path', 'png or jpg Image', ['class' => 'form-label']) !!}
+
+                    {!! Form::file('image_path', ['class' => 'form-control '.($errors->has('image_path') ? 'is-invalid':'')]) !!}
+
+                    <div class="invalid-feedback">
+                        @error('image_path') {{ $message }} @enderror
+                    </div>
+
+                </div>
+
+                <div class="form-group" style="margin-top: 15px;">
                     {!! Form::label('file_path', 'glTF or gld File', ['class' => 'form-label']) !!}
 
                     {!! Form::file('file_path', ['class' => 'form-control '.($errors->has('file_path') ? 'is-invalid':'')]) !!}

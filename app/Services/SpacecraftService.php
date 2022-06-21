@@ -66,4 +66,15 @@ class SpacecraftService {
         return $spacecraft;
     }
 
+    public function deleteSpacecraft(Request $request, $id)
+    {
+        $spacecraft = Spacecraft::findOrFail($id);
+
+        // Delete file
+        $oldFile = public_path($spacecraft->image);
+        File::delete($oldFile);
+
+        $spacecraft->delete();
+    }
+
 }

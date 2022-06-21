@@ -103,9 +103,9 @@
             </a>
 
             <p class="planet-short-info">
-                Semimajor Axis: {{ number_format($planet->solarSystemApi()->semimajorAxis, 0, '', ',') }} km <br> 
-                Perihelion: {{ number_format($planet->solarSystemApi()->perihelion, 0, '', ',') }} km <br> 
-                Aphelion: {{ number_format($planet->solarSystemApi()->aphelion, 0, '', ',') }} km
+                Semimajor Axis: {{ number_format($planet->semimajorAxis, 0, '', ',') }} km <br> 
+                Perihelion: {{ number_format($planet->perihelion, 0, '', ',') }} km <br> 
+                Aphelion: {{ number_format($planet->aphelion, 0, '', ',') }} km
             </p>
 
             <a style="text-decoration: none;" href="{{ route('show_astro_object', $planet->object_id) }}">

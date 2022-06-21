@@ -27,6 +27,21 @@ class AstronomicalObjectService {
  
         $astronomicalObject->save();
 
+        if ($request->file('image_path')) {
+            // Thumbnail upload
+            $originalImage = $request->file('image_path');
+            $image = Image::make($originalImage);
+            $image->fit(200);
+            $imagePath = public_path().'/astronomical-thumbnails/';
+            $imageSaveName = time().$originalImage->getClientOriginalName();
+            $image->save($imagePath.$imageSaveName);
+
+            // Save thumbnail path in db
+            $astronomicalObject->thumbnails()->create([
+                'image_path' => 'astronomical-thumbnails/'.$imageSaveName
+            ]);
+        }
+
         return $astronomicalObject;
     }
 
@@ -80,6 +95,25 @@ class AstronomicalObjectService {
         $astronomicalObject->save();
 
         return $astronomicalObject;
+    }
+
+    public function deleteAstronomicalObject(Request $request, $id)
+    {
+        $astronomicalObject = AstronomicalObject::findOrFail($id);
+
+        // Delete thumbnail
+        foreach ($astronomicalObject->thumbnails as $currentThumb) {
+            $deleteOldThumb = public_path($currentThumb->image_path);
+        
+            File::delete($deleteOldThumb);
+        }
+
+        // Delete file
+        $oldFile = public_path($astronomicalObject->file_path);
+        File::delete($oldFile);
+
+        $astronomicalObject->thumbnails()->where('imageable_id', $astronomicalObject->id)->first()->delete();
+        $astronomicalObject->delete();
     }
 
 }
